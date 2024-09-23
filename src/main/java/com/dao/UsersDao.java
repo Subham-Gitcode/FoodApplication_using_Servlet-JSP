@@ -40,4 +40,8 @@ public class UsersDao {
 				}
 	}
 
+	public Users findadminById(int adminId) {
+		return em.find(Users.class, adminId);
+	}
+
 }

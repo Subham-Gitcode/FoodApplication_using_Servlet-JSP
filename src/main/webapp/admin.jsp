@@ -183,7 +183,7 @@ button{
             window.location.href = "createbranch.jsp";
         });
         document.getElementById("findall").addEventListener("click", function() {
-            window.location.href = "admindashboard.jsp";
+            window.location.href = "findall";
         });
     </script>
 </body>

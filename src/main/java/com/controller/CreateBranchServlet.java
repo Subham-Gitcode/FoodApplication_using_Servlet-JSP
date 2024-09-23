@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dao.BranchDao;
+import com.dao.UsersDao;
 import com.entity.Branch;
 import com.entity.Users;
 
@@ -49,6 +50,15 @@ public class CreateBranchServlet extends HttpServlet {
 			Branch b1 = dao.createBranch(branch);
 			if(b1 != null) {
 				resp.getWriter().print("<h1>branch Created Sucessfully</h1>");
+				int adminId = admin.getId();
+				UsersDao usdao = new UsersDao();
+				Users adminuser = usdao.findadminById(adminId);
+				List<Branch> listofbranch = adminuser.getBranches();
+				//
+				for(Branch b : listofbranch) {
+					System.out.println(b.getBranch_name());
+				}
+				req.getSession().setAttribute("list", listofbranch);
 				req.getRequestDispatcher("admindashboard.jsp").include(req, resp);   
 			}
 		}

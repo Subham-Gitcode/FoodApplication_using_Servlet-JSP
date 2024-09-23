@@ -235,7 +235,7 @@ button{
 		<label for="password">Password</label>
 		<input type="password" placeholder="Password" name="password" required="required">
 		<label for="phone-no">Phone-No</label>
-		<input type="number" placeholder="Phone No" name="phone-no" required="required">
+		<input type="tel" placeholder="Phone No" name="phone-no" required="required">
 		<label for="bmn">Branch Manager</label>
 		<input type="text" placeholder="Branch Manager" name="bmn" required="required">        
 

@@ -129,13 +129,13 @@ button{
     <!-- java code -->
 <%
 Users admin = (Users)session.getAttribute("admin");
-List<Branch> listofbranchs = admin.getBranches();
+List<Branch> listofbranch = (List<Branch>)session.getAttribute("list");
 
 %>
 
 <!-- Html code -->
 <h1><%= admin.getId() %> id admin login</h1>
-<table border="2px solid " >
+<table border="2px solid " cellspacing="5px" cellpadding="5px" >
 <tr>
 <th>S.NO</th>
 <th>BranchId</th>
@@ -152,7 +152,7 @@ List<Branch> listofbranchs = admin.getBranches();
 
 <%
 int i = 1;
-for (Branch b :listofbranchs ){
+for (Branch b :listofbranch ){
 %>
 
 <tr>
@@ -171,7 +171,8 @@ for (Branch b :listofbranchs ){
 <%} %>
 </table>
 
-<button><a href="createbranch.jsp"> Create Branch ?</a></button>  
+<button><a href="createbranch.jsp"> Create Branch</a></button>  
+<button><a href="admin.jsp"> Back To home</a></button>  
     
 </body>
 </html>

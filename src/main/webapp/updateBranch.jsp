@@ -222,11 +222,11 @@ button{
 <body>
 <%
     // Retrieve branch ID from the request
-    String branchId = request.getParameter("branchId");
+    int branchId = Integer.parseInt(request.getParameter("branchId"));
     
     // Fetch branch details using branch ID
     BranchDao branchDao = new BranchDao();
-    Branch branch = branchDao.getBranchById(Integer.parseInt(branchId));
+    Branch branch = branchDao.getBranchById(branchId);
 %>
 
 
@@ -234,7 +234,7 @@ button{
         
     <form action="updateBranch">
         <h3>Update Existing Branch</h3>
-		<input type="hidden" name="branchId" value="<%= branch.getId() %>" />
+		<input type="text" name="branchId" value="<%= branch.getId() %>"  readonly="readonly"/>
         <label for="branchname" name="branchname">Branch Name</label>
         <input type="text" placeholder="Branch Name" id="branchname" name="branchname" value="<%= branch.getBranch_name() %>">
 		<label for="address" name="address">Address</label>
@@ -242,7 +242,7 @@ button{
         <label for="email">Email id</label>
         <input type="email" placeholder="Email" name="email" value="<%= branch.getEmail() %>">
 		<label for="phone-no">Phone-No</label>
-		<input type="number" placeholder="Phone No" name="phone-no" value="<%= branch.getPhoneno() %>">
+		<input type="tel" placeholder="Phone No" name="phone-no" value="<%= branch.getPhoneno() %>">
 		<label for="bmn">Branch Manager</label>
 		<input type="text" placeholder="Branch Manager" name="bmn" value="<%= branch.getBranchM_name() %>">        
 

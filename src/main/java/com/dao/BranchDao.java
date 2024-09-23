@@ -20,14 +20,7 @@ public class BranchDao {
 		return b1;
 	}
 	public Branch getBranchById(int branchId) {
-		Query q = em.createQuery("select b from Branch b where id = ?1");
-		q.setParameter(1, branchId);
-		List<Branch> listofbranch = q.getResultList();
-		if(!listofbranch.isEmpty()) {
-			return listofbranch.get(0);
-		}else {
-			return null;
-		}
+		return em.find(Branch.class, branchId);
     }
 
     // Method to update a branch
