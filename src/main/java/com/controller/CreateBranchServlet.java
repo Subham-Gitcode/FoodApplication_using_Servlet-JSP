@@ -23,43 +23,52 @@ public class CreateBranchServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String branchName = req.getParameter("branchname");
-		String address = req.getParameter("address");
-		String email = req.getParameter("email");
-		String password = req.getParameter("password");
-		long mob = Long.parseLong(req.getParameter("phone-no"));
-		String branch_manager = req.getParameter("bmn");
-		
-		System.out.println(branchName);
-		
-		Branch branch = new Branch();
-		branch.setBranch_name(branchName);
-		branch.setAddress(address);
-		branch.setEmail(email);
-		branch.setPassword(password);
-		branch.setPhoneno(mob);
-		branch.setBranchM_name(branch_manager);
-		
 		
 		HttpSession hs = req.getSession();
-		Users admin = (Users)hs.getAttribute("admin");//get admin
+		Users admin = (Users)hs.getAttribute("admin");
 		
 		if(admin != null) {
-			branch.setUser(admin);
-			BranchDao dao = new BranchDao();
-			Branch b1 = dao.createBranch(branch);
-			if(b1 != null) {
-				resp.getWriter().print("<h1>branch Created Sucessfully</h1>");
-				int adminId = admin.getId();
-				UsersDao usdao = new UsersDao();
-				Users adminuser = usdao.findadminById(adminId);
-				List<Branch> listofbranch = adminuser.getBranches();
-				//
-				for(Branch b : listofbranch) {
-					System.out.println(b.getBranch_name());
+			
+			// create a new branch....
+			String branchName = req.getParameter("branchname");
+			String address = req.getParameter("address");
+			String email = req.getParameter("email");
+			String password = req.getParameter("password");
+			long mob = Long.parseLong(req.getParameter("phone-no"));
+			String branch_manager = req.getParameter("bmn");
+			
+			System.out.println(branchName);
+			
+			Branch branch = new Branch();
+			branch.setBranch_name(branchName);
+			branch.setAddress(address);
+			branch.setEmail(email);
+			branch.setPassword(password);
+			branch.setPhoneno(mob);
+			branch.setBranchM_name(branch_manager);
+			
+			
+			
+			if(admin != null) {
+				branch.setUser(admin);
+				BranchDao dao = new BranchDao();
+				Branch b1 = dao.createBranch(branch);
+				if(b1 != null) {
+					resp.getWriter().print("<h1>branch Created Sucessfully</h1>");
+					int adminId = admin.getId();
+					UsersDao usdao = new UsersDao();
+					Users adminuser = usdao.findadminById(adminId);
+					List<Branch> listofbranch = adminuser.getBranches();
+					//
+					for(Branch b : listofbranch) {
+						System.out.println(b.getBranch_name());
+					}
+					req.getSession().setAttribute("list", listofbranch);
+					req.getRequestDispatcher("admindashboard.jsp").include(req, resp);   
 				}
-				req.getSession().setAttribute("list", listofbranch);
-				req.getRequestDispatcher("admindashboard.jsp").include(req, resp);   
+			}else {
+				resp.getWriter().print("<h1>Login First !!!</h1>");
+				req.getRequestDispatcher("login.jsp").include(req, resp);
 			}
 		}
 			

@@ -29,14 +29,9 @@ public class BranchDao {
 		 em.merge(branch);
 		em.getTransaction().commit();
     }
-    public void deleteBranch(int branchId) {
-    	Query q = em.createQuery("select b from Branch b where id = ?1");
-		q.setParameter(1, branchId);
-		List<Branch> listofbranch = q.getResultList();
-		if(! listofbranch.isEmpty()) {
-			em.getTransaction().begin();
-			 em.remove(listofbranch.get(0));
-			em.getTransaction().commit();
-		}
+    public void deleteBranch(Branch b) {
+    	em.getTransaction().begin();
+		 em.remove(b);
+		em.getTransaction().commit();
     }
 }

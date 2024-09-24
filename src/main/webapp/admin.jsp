@@ -176,6 +176,7 @@ button{
     <div class="background">
         <button id="newbranch">Create A New Branch ?</button>
         <button id="findall"> Find All</button>
+        <button id ="logout"> Logout</button>
         
         <script>
         // JavaScript to handle the button click event
@@ -184,6 +185,9 @@ button{
         });
         document.getElementById("findall").addEventListener("click", function() {
             window.location.href = "findall";
+        });
+        document.getElementById("logout").addEventListener("click", function() {
+            window.location.href = "logout";
         });
     </script>
 </body>

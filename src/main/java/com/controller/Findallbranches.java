@@ -18,13 +18,18 @@ public class Findallbranches  extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Users admin =  (Users) req.getSession().getAttribute("admin");
 		
+		if(admin != null) {
+			int adid = admin.getId();
+			UsersDao dao1 = new UsersDao();
+			Users adminuser = dao1.findadminById(adid);
+			List<Branch> listofbranches = adminuser.getBranches();
+			
+			req.getSession().setAttribute("list", listofbranches);
+			req.getRequestDispatcher("admindashboard.jsp").include(req, resp);
+		}else {
+			resp.getWriter().print("<h1>Login First !!!</h1>");
+			req.getRequestDispatcher("login.jsp").include(req, resp);
+		}
 		
-		int adid = admin.getId();
-		UsersDao dao1 = new UsersDao();
-		Users adminuser = dao1.findadminById(adid);
-		List<Branch> listofbranches = adminuser.getBranches();
-		
-		req.getSession().setAttribute("list", listofbranches);
-		req.getRequestDispatcher("admindashboard.jsp").include(req, resp);
 	}
 }
